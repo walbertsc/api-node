@@ -10,10 +10,20 @@ const transport = nodemailer.createTransport({
     auth: { user, pass }
   });
 
-transport.use('compile', hbs({
+/*transport.use('compile', hbs({
     viewEngine: 'handlebars',
     viewPath: path.resolve('./src/resource/mail/'),
     extName: '.html',
+}));*/
+
+transport.use('compile', hbs({
+  viewEngine: {
+    extName: '.html',
+    partialsDir: path.resolve('./src/resource/mail/'),
+    defaultLayout: false 
+  },
+  viewPath: path.resolve('./src/resource/mail/'),
+  extName: '.html',
 }))
 
 module.exports = transport;
